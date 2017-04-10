@@ -14,7 +14,7 @@
 <body>
   <div id="app">
     <test-a>
-      <test-b v-for="l in list" :key="l">
+      <test-b v-for="(l, index) in list" :key="index">
         <input type="text" v-model="l.value" /><button @click="remove()">删除</button>
       </test-b>
       <test-b><button @click="add()">添加</button></test-b>
