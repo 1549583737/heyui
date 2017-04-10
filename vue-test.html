@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width,initial-scale=1">
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name=viewport>
+  <meta name=keywords content=hey,ui,vue,es6>
+  <meta name=description itemprop=description content="">
+  <link rel="shortcut icon" type=image/x-icon href=/static/images/logo.ico>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <test-a>
+      <test-b v-for="l in list" :key="l">
+        <input type="text" v-model="l.value" /><button @click="remove()">删除</button>
+      </test-b>
+      <test-b><button @click="add()">添加</button></test-b>
+    </test-a>
+  </div>
+</body>
+<script>
+  Vue.component('testA', {
+    template: '<div><slot></slot></div>',
+    data: function() {
+      return {
+        a: "A!"
+      }
+    },
+    methods: {}
+  });
+  Vue.component('testB', {
+    template: '<div><slot></slot><a @click="change">{{a}}</a></div>',
+    data: function() {
+      return {
+        a: "click Me!"
+      }
+    },
+    methods: {
+      change: function() {
+        this.a = "clicked";
+      }
+    }
+  });
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!',
+      list: []
+    },
+    methods: {
+      add: function() {
+        this.list.push({
+          value: 1
+        });
+      },
+      remove: function(index) {
+        this.list.splice(index, 1);
+      }
+    }
+  })
+</script>
+
+</html>
