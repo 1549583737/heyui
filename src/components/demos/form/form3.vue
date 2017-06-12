@@ -15,6 +15,9 @@
         <input type="text"
                v-model="data.input" />
       </FormItem>
+      <FormItem label="整数">
+        <Slider v-model="data.int"></Slider>
+      </FormItem>
       <FormItem label="整数"
                 prop="int">
         <NumberInput
@@ -123,17 +126,19 @@
                   :key="item"
                   :label="'输入框'+(index+1)"
                   :prop="'inputs['+index+'].value'">
-          <Col width="18">
-          <input type="text"
-                 v-model="item.value" />
-          </Col>
-          <Col width="6"
-               class="text-right">
-          <Button text-color="red"
-                  v-width="'90%'"
-                  @click="remove(index)"
-                  icon="trash">删除</Button>
-          </Col>
+          <Row type="flex">
+            <Col class="flex1">
+            <input type="text"
+                  v-model="item.value" />
+            </Col>
+            <Col class="text-right" v-width="50">
+              <Poptip @confirm="remove(index)" content="确定删除？">
+                <Button text-color="red"
+                      :no-border="true"
+                      icon="trash"></Button>
+              </Poptip>
+            </Col>
+          </Row>
         </FormItem>
       </FormItemList>
       <FormItem :single="true">
@@ -193,6 +198,12 @@ export default {
         threecolumn: '三列一行',
       },
       validationRules: {
+        rules: {
+          textarea: {
+            maxLen: 50,
+            minLen: 10
+          }
+        },
         required: [
           'autocomplete',
           'select2',
