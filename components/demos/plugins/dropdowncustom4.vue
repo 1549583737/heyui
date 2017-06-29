@@ -1,6 +1,6 @@
 <template>
-  <DropdownCustom placement="top-start">
-    <span class="text-hover">个人信息</span>
+  <DropdownCustom placement="top-start" class-name="h-text-dropdown">
+    <span >个人信息</span>
     <div slot="content" v-width="200">
       <div v-padding="20">
         <img :width="80" :height="80" style="border-radius:80px;float:left" src="http://www.ch-un.com/images/head.jpg">
