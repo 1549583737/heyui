@@ -20,6 +20,12 @@
     <p v-width="400"><AutoComplete dict="simple" v-model="value4" type="object" multiple></AutoComplete></p>
   </div>
 </template>
+<!-- 
+  系统初始化的时候
+  HeyUI.initDict({
+    simple: { 1: '苹果', 2: '梨子', 3: '香蕉', 4: '橙子', 5: '樱桃' }
+  }); 
+-->
 <script>
 export default {
   data(){

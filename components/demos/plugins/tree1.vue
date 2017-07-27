@@ -41,6 +41,9 @@ export default {
         titleName: 'title',
         dataMode: 'list',
         datas: list
+        // datas() { 可以使用方法
+        //   return list;
+        // }
       }
     }
   },
@@ -54,8 +57,8 @@ export default {
     updateSelect() {
       // 两种方法都可以
       // this.$refs.demo.updateSelect(2);
-      this.value = 2;
-      this.$Message.info("选中二级");
+      this.value = 21;
+      this.$Message.info("选中二级-1");
     },
     getSelect() {
       let option = this.$refs.demo.getSelect();
