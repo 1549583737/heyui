@@ -13,19 +13,19 @@
       <FormItem label="输入框"
                 prop="input">
         <input type="text"
-               v-model="data.input" />
+               v-model="data.input" placeholder="限制输入30个字" v-wordlimit='30'/>
         <template slot="error" scope="props">
           <!-- *type*: base, combine, async -->
           <span class="link" v-if="props.type == 'async'">+++++++错误的特殊提示+++++++</span>
         </template>
       </FormItem>
-      <FormItem label="整数">
+      <FormItem label="整数" prop="int">
         <Slider v-model="data.int"></Slider>
       </FormItem>
       <FormItem label="整数"
                 prop="int">
         <NumberInput
-               v-model="data.int" ></NumberInput>
+               v-model="data.int" :min="0" :max="100" ></NumberInput>
       </FormItem>
       <FormItem label="只读" readonly>只读数据</FormItem>
       <FormItem label="数字"
@@ -108,7 +108,7 @@
                 :single="true"
                 prop="textarea">
         <textarea rows="3"
-                  v-autosize
+                  v-autosize v-wordcount="50"
                   v-model="data.textarea"></textarea>
       </FormItem>
       <FormItem label="单选"
@@ -125,6 +125,10 @@
                 prop="autocomplete">
         <AutoComplete v-model="data.autocomplete" config="simple"></AutoComplete>
       </FormItem>
+      <!-- 
+        这里定义的required属性同样适用与验证规则中，
+        验证的字段即可以是things[0]（代表独立的数据验证），也可以是things[]（代表整个数组的数据验证）
+       -->
       <FormItem label="自定义规则" prop="things[0]" required>
         <input type="text" v-model="data.things[0]" />
       </FormItem>
@@ -142,7 +146,7 @@
               <Poptip @confirm="remove(index)" content="确定删除？">
                 <Button text-color="red"
                       :no-border="true"
-                      icon="trash"></Button>
+                      icon="h-icon-trash"></Button>
               </Poptip>
             </Col>
           </Row>
@@ -175,7 +179,7 @@ export default {
         email: null,
         tel: null,
         mobile: null,
-        input: '测试',
+        input: '',
         textarea: '',
         radio: 1,
         rate: null,
@@ -214,7 +218,8 @@ export default {
             minLen: 10
           },
           input: {
-            //这里的判断不会影响最终的valid结果，所以可以作为一些验证提示，也可以做异步处理判断(原则上所以的异步判断在提交后同样需要验证)
+            //做异步处理判断(原则上所有的异步判断在提交后同样需要验证)
+            //这里的判断不会影响最终的valid结果，所以也可以作为一些验证提示
             validAsync(value, next, parent, data) {
               setTimeout(()=>{
                 if(value.length == 15 || value.length == 18 ) {
@@ -232,7 +237,6 @@ export default {
           'select3',
           'inputs[].value',
           'input',
-          'textarea',
           'radio',
           'rate',
           'checkbox',
